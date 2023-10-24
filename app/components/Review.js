@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, TextInput, Button } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 const Review = (props) => {
     return (
@@ -12,11 +12,11 @@ const Review = (props) => {
 const styles = StyleSheet.create({
     txt: {
         marginVertical: 10,
-        paddingVertical: 5,
-        paddingHorizontal:10,
-        fontSize: 18,
-        borderLeftWidth: 4,
-        borderLeftColor:'grey'
+        padding: 12,
+        fontSize: 14,
+        borderWidth: 2,
+        borderRadius: 10,
+        borderColor: "#e5e5e5",
         // backgroundColor: "pink",
     },
 });

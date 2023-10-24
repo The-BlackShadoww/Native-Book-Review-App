@@ -1,15 +1,9 @@
 import React from "react";
-import {
-    StyleSheet,
-    Text,
-    View,
-    Image,
-    TouchableHighlight,
-} from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 
 const Books = (props) => {
     return (
-        <TouchableHighlight style={styles.center} onPress={props.goToDetails}>
+        <TouchableOpacity style={styles.center} onPress={props.goToDetails}>
             <View style={styles.card}>
                 <View>
                     {props.book.image && (
@@ -25,12 +19,9 @@ const Books = (props) => {
                     <Text style={styles.info}>
                         Category: {props.book.category}
                     </Text>
-                    {/* <Text style={styles.description}>
-                        {props.book.description}
-                    </Text> */}
                 </View>
             </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
     );
 };
 
@@ -39,7 +30,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     card: {
-        width: "90%",
+        width: "100%",
         borderRadius: 15,
         backgroundColor: "white",
         overflow: "hidden",
@@ -52,7 +43,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: "100%",
-        height: 550,
+        height: 565,
         objectFit: "cover",
     },
     title: {

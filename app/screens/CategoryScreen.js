@@ -24,7 +24,7 @@ const CategoryScreen = (props) => {
                         selectCategory={() =>
                             navigation.navigate("Category", {
                                 category: item,
-                            },)
+                            })
                         }
                     />
                 )}

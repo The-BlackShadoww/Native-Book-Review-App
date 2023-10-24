@@ -26,22 +26,20 @@ const BookScreen = (props) => {
 
     return (
         <View style={styles.container}>
-            <View>
-                <FlatList
-                    data={props.books}
-                    renderItem={({ item }) => (
-                        <Books
-                            book={item}
-                            goToDetails={() =>
-                                navigation.navigate("Book Details", {
-                                    book: item,
-                                })
-                            }
-                        />
-                    )}
-                    keyExtractor={(book) => book.id.toString()}
-                />
-            </View>
+            <FlatList
+                data={props.books}
+                renderItem={({ item }) => (
+                    <Books
+                        book={item}
+                        goToDetails={() =>
+                            navigation.navigate("Book Details", {
+                                book: item,
+                            })
+                        }
+                    />
+                )}
+                keyExtractor={(book) => book.id.toString()}
+            />
         </View>
     );
 };
@@ -49,8 +47,9 @@ const BookScreen = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
+        // alignItems: "center",
+        // justifyContent: "center",
+        margin:15,
     },
 });
 

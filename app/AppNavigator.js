@@ -35,23 +35,3 @@ const AppNavigator = (props) => {
 };
 
 export default connect(mapStateToProps)(AppNavigator);
-
-//! -------- Previous ---------
-// import React from "react";
-// import HomeScreen from "./screens/HomeScreen";
-// import BookDetails from "./screens/BookDetailScreen";
-// import CategoryBookScreen from "./screens/CategoryBookScreen";
-// import AuthScreen from "./screens/AuthScreen";
-// import { createDrawerNavigator } from "@react-navigation/drawer";
-// const Drawer = createDrawerNavigator();
-// const AppNavigator = () => {
-//     return (
-//         <Drawer.Navigator initialRouteName="Home">
-//             <Drawer.Screen name="Home" component={HomeScreen} />
-//             <Drawer.Screen name="Category" component={CategoryBookScreen} />
-//             <Drawer.Screen name="Book Details" component={BookDetails} />
-//             <Drawer.Screen name="Login" component={AuthScreen} />
-//         </Drawer.Navigator>
-//     );
-// };
-// export default AppNavigator;

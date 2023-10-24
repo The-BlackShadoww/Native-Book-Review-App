@@ -7,10 +7,12 @@ import {
     TextInput,
     Button,
     FlatList,
+    TouchableOpacity,
 } from "react-native";
 import { postReview, fetchReviews } from "../redux/actionCreator";
 import { connect } from "react-redux";
 import Review from "../components/Review";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const mapStateToProps = (state) => {
     return {
@@ -24,72 +26,87 @@ const mapDispatchToProps = (dispatch) => {
         fetchReviews: () => dispatch(fetchReviews()),
     };
 };
-
 const BookDetailScreen = (props) => {
-    useEffect(() => {
-        props.fetchReviews();
-        console.log(props.reviews);
-    }, []);
+    const book = props.route.params?.book;
 
-    const { book } = props.route.params;
-    const [review, setReview] = useState("");
+    let content;
 
-    const handleInput = (value) => {
-        setReview(value);
-    };
+    if (book) {
+        useEffect(() => {
+            props.fetchReviews();
+        }, []);
 
-    const sendReview = () => {
-        props.postReview(review);
-        setReview("");
-    };
+        const [review, setReview] = useState("");
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.bookContainer}>
-                <View style={styles.w50}>
-                    {book.image && (
-                        <Image
-                            style={styles.img}
-                            source={{ uri: book.image }}
-                        />
-                    )}
-                </View>
-                <View style={styles.info}>
-                    <Text style={styles.name}>{book.name}</Text>
-                    <Text>Author: {book.Author}</Text>
-                    <Text>Category: {book.category}</Text>
-                    <Text style={styles.desc}>{book.description}</Text>
-                </View>
-            </View>
-            <View>
-                <Text style={styles.revwTxt}>Reviews</Text>
-                <View style={styles.reviewVew}>
-                    <View style={styles.inputVew}>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Write a Review"
-                            value={review}
-                            onChangeText={(value) => handleInput(value)}
-                        />
+        const handleInput = (value) => {
+            setReview(value);
+        };
+
+        const sendReview = () => {
+            if (review !== "") {
+                props.postReview(review);
+            }
+            setReview("");
+        };
+
+        content = (
+            <View style={styles.container}>
+                <View style={styles.bookContainer}>
+                    <View style={styles.w50}>
+                        {book.image && (
+                            <Image
+                                style={styles.img}
+                                source={{ uri: book.image }}
+                            />
+                        )}
                     </View>
-                    <View style={styles.btnView}>
-                        <Button title=">" color="black" onPress={sendReview} />
+                    <View style={styles.info}>
+                        <Text style={styles.name}>{book.name}</Text>
+                        <Text>Author: {book.Author}</Text>
+                        <Text>Category: {book.category}</Text>
+                        <Text style={styles.desc}>{book.description}</Text>
                     </View>
                 </View>
+                <View>
+                    <Text style={styles.revwTxt}>Reviews</Text>
+                    <View style={styles.reviewVew}>
+                        <View style={styles.inputVew}>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Write a Review"
+                                value={review}
+                                onChangeText={(value) => handleInput(value)}
+                            />
+                        </View>
+                        <TouchableOpacity
+                            style={styles.btnView}
+                            onPress={sendReview}
+                        >
+                            <Text style={{ color: "white" }}>
+                                <MaterialCommunityIcons
+                                    name="send"
+                                    size={18}
+                                    color="white"
+                                />
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={styles.flatVew}>
+                    <Text>All reviews</Text>
+                    <FlatList
+                        data={props.reviews}
+                        renderItem={({ item }) => <Review item={item} />}
+                        // keyExtractor={(item) => item.id.toString()}
+                    />
+                </View>
             </View>
-            <View style={styles.flatVew}>
-                <Text>All reviews</Text>
-                <FlatList
-                    data={props.reviews}
-                    renderItem={({ item }) => <Review item={item} />}
-                    // keyExtractor={(item) => item.id.toString()}
-                />
-                {/* {props.reviews.map((r) => (
-                    <Text>{r.review}</Text>
-                ))} */}
-            </View>
-        </View>
-    );
+        );
+    } else {
+        content = <Text style={{ margin: 15 }}>No book selected</Text>;
+    }
+
+    return content;
 };
 
 const styles = StyleSheet.create({
@@ -131,31 +148,36 @@ const styles = StyleSheet.create({
         // backgroundColor:'pink'
     },
     revwTxt: {
-        marginVertical: 15,
+        marginVertical: 25,
         fontSize: 25,
+        fontWeight: "500",
     },
     reviewVew: {
         display: "flex",
-        flexDirection: "column",
-        marginBottom:15
+        flexDirection: "row",
+        marginBottom: 15,
     },
     inputVew: {
-        width: "100%",
+        width: "80%",
     },
     btnView: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         width: "20%",
-        marginTop: 10,
-        alignSelf:'flex-end'
+        padding: 12,
+        backgroundColor: "black",
+        borderWidth: 1,
     },
     input: {
         padding: 8,
         borderWidth: 1,
-        borderRadius: 8,
-        borderColor: "grey",
+        // borderRadius: 8,
+        borderColor: "black",
     },
     flatVew: {
-        flex:1
-    }
+        flex: 1,
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookDetailScreen);

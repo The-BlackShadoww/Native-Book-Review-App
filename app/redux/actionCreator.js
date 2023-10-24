@@ -11,8 +11,8 @@ export const authUser = (token) => {
 export const logout = () => {
     return {
         type: actionTypes.LOGOUT,
-    }
-}
+    };
+};
 
 export const tryAuth = (email, password, mode) => (dispatch) => {
     let URL = "";
@@ -50,7 +50,6 @@ export const tryAuth = (email, password, mode) => (dispatch) => {
             alert("Authentication Failed");
         });
 };
-
 
 export const bookStore = (book) => {
     return {
@@ -123,9 +122,8 @@ export const fetchReviews = () => (dispatch) => {
                     review: data[id].review,
                 };
             });
-            dispatch(storeReviews(reviews));
 
-            // dispatch(storeReviews(response.data));
+            dispatch(storeReviews(reviews));
             console.log(reviews);
         })
         .catch((error) => console.log(error));

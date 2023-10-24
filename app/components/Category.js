@@ -1,19 +1,10 @@
 import React from "react";
-import {
-    StyleSheet,
-    Text,
-    View,
-    TouchableHighlight,
-    TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 const Category = (props) => {
     return (
         <View style={styles.container}>
-            <TouchableOpacity
-                style={styles.cat}
-                onPress={props.selectCategory}
-            >
+            <TouchableOpacity style={styles.cat} onPress={props.selectCategory}>
                 <Text style={styles.txt}>{props.item} </Text>
             </TouchableOpacity>
         </View>
